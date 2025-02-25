@@ -92,6 +92,9 @@ async def register(
                 # Ensure the "users" folder exists in Cloudinary
                 result = cloudinary.uploader.upload(img.file, folder="users")
                 img_url = result.get("secure_url")
+                if not img_url:
+                    logger.error("Image upload returned null URL")
+                    raise HTTPException(status_code=500, detail="Image upload failed: URL is null")
             except Exception as e:
                 logger.error(f"Image upload failed: {str(e)}")
                 raise HTTPException(status_code=500, detail=f"Image upload failed: {str(e)}")

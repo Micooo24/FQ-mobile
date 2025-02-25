@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, Image } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, Image, Alert } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import axios from 'axios';
+import baseURL from '../../assets/common/baseurl';
 
 const Signup = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
   const [username, setUsername] = useState('');
   const [birthday, setBirthday] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
@@ -37,6 +38,36 @@ const Signup = () => {
 
   const showDatePickerModal = () => {
     setShowDatePicker(true);
+  };
+
+  const handleSignup = async () => {
+    const formData = new FormData();
+    formData.append('username', username);
+    formData.append('email', email);
+    formData.append('password', password);
+    formData.append('birthday', birthday.toISOString().split('T')[0]);
+    if (image) {
+      const uriParts = image.split('.');
+      const fileType = uriParts[uriParts.length - 1];
+      formData.append('img', {
+        uri: image,
+        name: `photo.${fileType}`,
+        type: `image/${fileType}`,
+      });
+    }
+
+    try {
+      const response = await axios.post(`${baseURL}/users/register`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      Alert.alert('Success', 'User registered successfully');
+      navigation.navigate('Login');
+    } catch (error) {
+      console.error('Error registering user:', error);
+      Alert.alert('Error', 'Failed to register user');
+    }
   };
 
   return (
@@ -88,21 +119,11 @@ const Signup = () => {
           style={styles.input}
           theme={{ colors: { text: 'white', placeholder: 'white', primary: 'white' } }}
         />
-        <TextInput
-          label="Confirm Password"
-          value={confirmPassword}
-          onChangeText={setConfirmPassword}
-          mode="outlined"
-          secureTextEntry
-          left={<TextInput.Icon name={() => <Icon name="lock" size={24} color="white" />} />}
-          style={styles.input}
-          theme={{ colors: { text: 'white', placeholder: 'white', primary: 'white' } }}
-        />
         <TouchableOpacity onPress={pickImage} style={styles.imagePicker}>
           <Text style={styles.imagePickerText}>Upload Image</Text>
         </TouchableOpacity>
         {image && <Text style={styles.imageText}>Image selected</Text>}
-        <Button mode="contained" onPress={() => {}} style={styles.signupButton}>
+        <Button mode="contained" onPress={handleSignup} style={styles.signupButton}>
           Signup
         </Button>
         {image && (
