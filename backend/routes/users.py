@@ -70,7 +70,6 @@ def send_verification_email(email: str, otp: int):
     except Exception as e:
         logger.error(f"Failed to send email: {str(e)}")
         raise HTTPException(status_code=500, detail="Failed to send email")
-
 @router.post("/register")
 async def register(
     username: str = Form(...),
@@ -128,6 +127,7 @@ async def register(
     except Exception as e:
         logger.error(f"An error occurred: {str(e)}")
         raise HTTPException(status_code=500, detail=f"An error occurred: {str(e)}")
+    
 
 @router.post("/verify-email")
 async def verify_email(email: str = Body(...), otp: int = Body(...)):
@@ -173,8 +173,8 @@ async def login(
                 "experience": 0,
                 "location": {
                     "x": -8.389501036635487,
-                    "z": 0.5,
-                    "y": 33.26385975348472
+                    "y": 0.5,
+                    "z": 33.26385975348472
                 }
             }
             db["stats"].insert_one(new_stats)
