@@ -1,13 +1,16 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation } from '@react-navigation/native';
 import LottieView from 'lottie-react-native';
-
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import baseURL from '../../assets/common/baseurl';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const navigation = useNavigation();
   const animation = useRef(null);
 
@@ -16,6 +19,37 @@ const Login = () => {
       animation.current.play();
     }
   }, []);
+
+  const logAsyncStorage = async () => {
+    try {
+      const keys = await AsyncStorage.getAllKeys();
+      const result = await AsyncStorage.multiGet(keys);
+      console.log('AsyncStorage contents:', result);
+    } catch (error) {
+      console.error('Error logging AsyncStorage:', error);
+    }
+  };
+
+  const handleLogin = async () => {
+    try {
+      const response = await axios.post(`${baseURL}/users/login`, {
+        email,
+        password,
+      });
+      console.log('Login response:', response.data);
+      if (response.status === 200) {
+        const { access_token } = response.data;
+        await AsyncStorage.setItem('email', email);
+        await AsyncStorage.setItem('authToken', access_token);
+        Alert.alert('Success', 'Login successful!');
+        navigation.navigate('Home');
+        logAsyncStorage(); // Log AsyncStorage contents after setting the tokens
+      }
+    } catch (error) {
+      console.error('Error logging in:', error);
+      Alert.alert('Error', 'Failed to log in');
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -49,8 +83,9 @@ const Login = () => {
             value={password}
             onChangeText={setPassword}
             mode="outlined"
-            secureTextEntry
+            secureTextEntry={!showPassword}
             left={<TextInput.Icon icon={() => <Icon name="lock" size={24} color="white" />} />}
+            right={<TextInput.Icon icon={() => <Icon name={showPassword ? "visibility" : "visibility-off"} size={24} color="white" onPress={() => setShowPassword(!showPassword)} />} />}
             style={styles.input}
             theme={{ colors: { text: 'white', placeholder: 'white', primary: 'white' } }}
             outlineColor="rgba(255,255,255,0.5)"
@@ -60,7 +95,7 @@ const Login = () => {
         
         <Button 
           mode="contained" 
-          onPress={() => {}} 
+          onPress={handleLogin} 
           style={styles.loginButton}
           labelStyle={styles.loginButtonText}
         >
