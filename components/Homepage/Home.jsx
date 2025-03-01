@@ -17,6 +17,7 @@ import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import baseURL from '../../assets/common/baseurl';
+import LinearGradient from 'react-native-linear-gradient';
 
 const { width } = Dimensions.get('window');
 
@@ -104,8 +105,13 @@ const Home = () => {
             style={styles.menuCard}
             onPress={() => navigation.navigate('GameFeatures')}
           >
-            <View style={styles.menuIconContainer}>
-              <FontAwesome5 name="gamepad" size={28} color="white" />
+            <View style={[styles.menuIconContainer, styles.gameIconContainer]}>
+              <View style={styles.iconBackground}>
+                <FontAwesome5 name="gamepad" size={32} color="white" />
+              </View>
+              <View style={styles.miniIcon}>
+                <FontAwesome5 name="trophy" size={14} color="#FFD700" />
+              </View>
             </View>
             <View style={styles.menuContent}>
               <Text style={styles.menuTitle}>Game Features</Text>
@@ -119,10 +125,15 @@ const Home = () => {
           {/* Blogs Menu */}
           <TouchableOpacity 
             style={styles.menuCard}
-            onPress={() => navigation.navigate('Blogs')}
+            onPress={() => navigation.navigate('Blog')}
           >
-            <View style={[styles.menuIconContainer, { backgroundColor: '#FF9800' }]}>
-              <FontAwesome5 name="book-open" size={28} color="white" />
+            <View style={[styles.menuIconContainer, styles.blogsIconContainer]}>
+              <View style={styles.iconBackground}>
+                <FontAwesome5 name="book-open" size={30} color="white" />
+              </View>
+              <View style={styles.miniIcon}>
+                <FontAwesome5 name="lightbulb" size={14} color="#FFC107" />
+              </View>
             </View>
             <View style={styles.menuContent}>
               <Text style={styles.menuTitle}>Financial Blogs</Text>
@@ -138,8 +149,13 @@ const Home = () => {
             style={styles.menuCard}
             onPress={() => navigation.navigate('About')}
           >
-            <View style={[styles.menuIconContainer, { backgroundColor: '#4CAF50' }]}>
-              <FontAwesome5 name="info-circle" size={28} color="white" />
+            <View style={[styles.menuIconContainer, styles.aboutIconContainer]}>
+              <View style={styles.iconBackground}>
+                <FontAwesome5 name="info-circle" size={30} color="white" />
+              </View>
+              <View style={styles.miniIcon}>
+                <FontAwesome5 name="question" size={14} color="#FFFFFF" />
+              </View>
             </View>
             <View style={styles.menuContent}>
               <Text style={styles.menuTitle}>About</Text>
@@ -151,24 +167,7 @@ const Home = () => {
           </TouchableOpacity>
         </View>
 
-        {/* Recent Transactions Section - Simplified */}
-        <View style={styles.transactionsSection}>
-          <View style={styles.sectionHeader}>
-            <Text style={styles.sectionTitle}>Recent Activity</Text>
-            <TouchableOpacity onPress={() => navigation.navigate('Transactions')}>
-              <Text style={styles.viewAllText}>View All</Text>
-            </TouchableOpacity>
-          </View>
-          
-          <Card style={styles.activityCard}>
-            <Card.Content>
-              <Text style={styles.activityTitle}>Your financial journey awaits!</Text>
-              <Text style={styles.activityDescription}>
-                Begin by exploring our game features or reading our latest blogs on financial literacy.
-              </Text>
-            </Card.Content>
-          </Card>
-        </View>
+
 
         {/* Tips Section */}
         <View style={styles.tipsSection}>
@@ -214,6 +213,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 20,
+    paddingTop: 30, // Added padding to ensure visibility
   },
   headerTitle: {
     color: 'white',
@@ -278,13 +278,48 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
   },
   menuIconContainer: {
-    width: 60,
-    height: 60,
+    width: 65,
+    height: 65,
     borderRadius: 15,
-    backgroundColor: '#7E57C2',
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 15,
+    position: 'relative',
+  },
+  iconBackground: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 15,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  gameIconContainer: {
+    backgroundColor: '#7E57C2',
+    borderWidth: 2,
+    borderColor: '#673AB7',
+  },
+  blogsIconContainer: {
+    backgroundColor: '#FF9800',
+    borderWidth: 2,
+    borderColor: '#F57C00',
+  },
+  aboutIconContainer: {
+    backgroundColor: '#4CAF50',
+    borderWidth: 2,
+    borderColor: '#388E3C',
+  },
+  miniIcon: {
+    position: 'absolute',
+    bottom: -5,
+    right: -5,
+    backgroundColor: '#472751',
+    width: 24,
+    height: 24,
+    borderRadius: 12,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: 'white',
   },
   menuContent: {
     flex: 1,

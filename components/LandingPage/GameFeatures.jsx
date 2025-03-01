@@ -96,18 +96,6 @@ const GameFeatures = () => {
           ))}
         </View>
 
-        <View style={styles.cta}>
-          <Text style={styles.ctaTitle}>Ready to Start?</Text>
-          <Text style={styles.ctaText}>
-            Begin your financial journey today and develop essential money management skills.
-          </Text>
-          <TouchableOpacity 
-            style={styles.ctaButton}
-            onPress={() => navigation.navigate('Quiz')}
-          >
-            <Text style={styles.ctaButtonText}>Take Your First Quiz</Text>
-          </TouchableOpacity>
-        </View>
       </ScrollView>
     </SafeAreaView>
   );

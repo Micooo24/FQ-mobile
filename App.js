@@ -7,6 +7,10 @@ import Signup from './components/Auth/Signup';
 import Home from './components/Homepage/Home';
 import GameFeatures from './components/LandingPage/GameFeatures';
 import About from './components/LandingPage/About';
+import Blog from './components/LandingPage/Blog';
+import BudgetingBlog from './components/LandingPage/BudgetingBlog';
+import InvestingBlog from './components/LandingPage/InvestingBlog';
+import SavingBlog from './components/LandingPage/SavingBlog';
 
 const Stack = createNativeStackNavigator();
 
@@ -42,6 +46,26 @@ export default function App() {
         <Stack.Screen 
           name="About" 
           component={About}
+          options={{ headerShown: false }}
+        />
+         <Stack.Screen 
+          name="Blog" 
+          component={Blog}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen 
+          name="BudgetingBlog" 
+          component={BudgetingBlog}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen 
+          name="InvestingBlog" 
+          component={InvestingBlog}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen 
+          name="SavingBlog" 
+          component={SavingBlog}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

@@ -45,7 +45,7 @@ const About = () => {
               <Text style={styles.sectionTitle}>Our Vision</Text>
             </View>
             <Text style={styles.sectionText}>
-              We want to teach money skills by making learning fun and useful through games and real-life examples. We believe everyone should learn about money, no matter their age or background. Our goal is to make money lessons easy to access, fun to learn, and useful in daily life.
+            We aim to implement financial education by making learning fun, interactive, and impactful through gamified experiences and real-world scenarios. We believe that financial literacy is essential for everyone, regardless of age or background, and should be accessible, engaging, and practical. By transforming complex financial concepts into interactive adventures.
             </Text>
           </Card.Content>
         </Card>
@@ -57,7 +57,7 @@ const About = () => {
               <Text style={styles.sectionTitle}>Our Mission</Text>
             </View>
             <Text style={styles.sectionText}>
-              Our job is to help people make better money choices and reach their goals. We want to close the gap in money knowledge by creating a game that teaches as you play. Our app helps you think about money problems, find solutions, and make smart choices.
+            Our mission is to empower individuals with the knowledge and tools they need to make informed financial decisions and reach their goals. We are dedicated to bridging the financial literacy gap by providing an immersive and educational gaming platform that encourages strategic thinking, problem-solving, and informed decision-making.
             </Text>
           </Card.Content>
         </Card>
@@ -69,10 +69,7 @@ const About = () => {
               <Text style={styles.sectionTitle}>About The App</Text>
             </View>
             <Text style={styles.sectionText}>
-              Financial Quest is a fun learning game where you learn about money by making choices. You can level up by solving money problems and making good decisions. The game lets you practice money skills through stories and challenges.
-            </Text>
-            <Text style={styles.sectionText}>
-              Our app has many activities about saving money, handling debt, investing, and smart spending. We include real money situations from the Philippines that users can relate to. As you play, you'll meet characters who give you tips and challenges that shape your game story based on your choices.
+              Financial Quest is a game where you learn money skills through fun challenges and stories. Make smart choices, solve problems, and level up your financial knowledge. With real-life examples from the Philippines, you'll learn about saving, debt, investing, and smart spending in a way that's easy to understand and remember.
             </Text>
           </Card.Content>
         </Card>
@@ -84,7 +81,7 @@ const About = () => {
               <Text style={styles.sectionTitle}>Our Team</Text>
             </View>
             <Text style={styles.sectionText}>
-              Financial Quest is made by a team who cares about teaching money skills. We combine our knowledge of app making, money matters, teaching, and game design to create a fun learning experience.
+            Our team is dedicated to providing a comprehensive and engaging learning experience for players.
             </Text>
           </Card.Content>
         </Card>
